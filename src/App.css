@@ -1,4 +1,4 @@
-/* https://github.com/jrlarsen/react-hooks-in-action/blob/0201-pages/src/App.css */
+/* https://github.com/jrlarsen/react-hooks-in-action/blob/0202-hard-coded/src/App.css */
 :root {
   --page-bg: #eee7be;
   --primary: #173f5f;
@@ -108,4 +108,41 @@ main {
   max-width: 70em;
   grid-template-columns: 1fr 3fr;
   grid-column-gap: 40px;
+}
+
+
+.items-list-nav {
+  margin: 1rem auto;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.items-list-nav > li {
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.items-list-nav .btn {
+  width: 100%;
+  background: var(--light-text);
+  color: var(--dark-text);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+}
+
+.items-list-nav a {
+  display: block;
+  padding: 1em 2em;
+  text-decoration: none;
+}
+
+.items-list-nav .btn:hover {
+  cursor: pointer;
+  border: 1px solid var(--primary);
+}
+
+.items-list-nav .selected .btn {
+  background: var(--primary);
+  color: var(--light-text);
 }
