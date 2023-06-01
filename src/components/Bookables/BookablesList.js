@@ -13,6 +13,11 @@ export default function BookablesList() {
 
   const [hasDetails, setHasDetails] = useState(false);
 
+  function changeGroup(event) {
+    setGroup(event.target.value);
+    setBookableIndex(0);
+  }
+
   function nextBookable() {
     setBookableIndex(i => (i + 1) % bookablesInGroup.length);
   }
@@ -22,7 +27,7 @@ export default function BookablesList() {
       <div>
         <select
           value={group}
-          onChange={(e) => setGroup(e.target.value)}  
+          onChange={changeGroup}  
         >
           {groups.map(g => <option value={g} key={g}>{g}</option>)}
         </select>
