@@ -25,9 +25,9 @@ export default function BookablesList() {
   const { hasDetails, isLoading, error } = state;
 
   const bookablesInGroup = bookables.filter(b => b.group === group);
-  const groups = [...new Set(bookables.map(b => b.group))];
   const bookable = bookablesInGroup[bookableIndex];
-
+  const groups = [...new Set(bookables.map(b => b.group))];
+  
   useEffect(() => {
 
     dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
