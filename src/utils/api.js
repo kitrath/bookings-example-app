@@ -7,6 +7,6 @@ export default function getData(url) {
         throw Error("There was a problem fetching data.");
       }
 
-      return resp.json
+      return resp.json();
     });
 }

@@ -34,10 +34,13 @@ export default function BookablesList() {
 
     getData("http://localhost:3001/bookables")
 
-      .then(bookables => dispatch({
-        type: "FETCH_BOOKABLES_SUCCESS",
-        payload: bookables
-      }))
+      .then((bookables) => {
+        // console.log("In fetch .then()", bookables);
+        dispatch({
+          type: "FETCH_BOOKABLES_SUCCESS",
+          payload: bookables
+        })
+      })
 
       .catch(error => dispatch({
         type: "FETCH_BOOKABLES_ERROR",
