@@ -1,10 +1,22 @@
-import { useState, Fragment } from "react";
-import data from "../../static.json";
+import { useState, useEffect, Fragment } from "react";
+import Spinner from "../UI/Spinner";
 
 export default function UsersList() {
-  const { users } = data;
+  const [users, setUsers] = useState(null);
   // Initially, no user selected
   const [usersIndex, setUsersIndex] = useState(null);
+
+  useEffect(() => {
+
+    fetch("http://localhost:3001/users")
+      .then(resp => resp.json())
+      .then(data => setUsers(data));
+
+  }, []);
+
+  if (users === null) {
+    return <Spinner/>
+  }
 
   const user = users[usersIndex];
 
