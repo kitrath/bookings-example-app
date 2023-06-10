@@ -1,4 +1,4 @@
-import { useReducer, useEffect, Fragment } from "react";
+import { useReducer, useEffect, useRef, Fragment } from "react";
 // Still need to import file data for sessions, days
 import data from "../../static.json";
 import { FaArrowRight } from "react-icons/fa";
@@ -27,7 +27,9 @@ export default function BookablesList() {
   const bookablesInGroup = bookables.filter(b => b.group === group);
   const bookable = bookablesInGroup[bookableIndex];
   const groups = [...new Set(bookables.map(b => b.group))];
-  
+ 
+  const timerRef = useRef(null);
+
   useEffect(() => {
 
     dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
@@ -48,6 +50,20 @@ export default function BookablesList() {
       }));
 
   }, []);
+
+  useEffect(() => {
+
+    timerRef.current = setInterval(() => {
+      dispatch({ type: "NEXT_BOOKABLE" });
+    }, 3000);
+  
+    return stopPresentation;
+
+  }, []);
+
+  function stopPresentation() {
+    clearInterval(timerRef.current);
+  }
 
   function changeGroup(e) {
     dispatch({
@@ -129,7 +145,14 @@ export default function BookablesList() {
                     checked={hasDetails}
                     onChange={toggleDetails}
                   />
+                  Show Details
                 </label>
+                <button
+                  className="btn"
+                  onClick={stopPresentation} 
+                >
+                  Stop
+                </button>
               </span>
             </div>
 
