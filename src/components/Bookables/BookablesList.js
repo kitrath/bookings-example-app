@@ -86,7 +86,7 @@ export default function BookablesList({ bookable, setBookable }) {
           className="btn"
           onClick={nextBookable}
           ref={nextButtonRef}
-          autofocus
+          autoFocus
         >
           <FaArrowRight/>
           <span>Next</span>

@@ -1,9 +1,9 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import Spinner from "../UI/Spinner";
 
 import getData from "../../utils/api";
 
-export default function UsersList() {
+export default function UsersList({ setUser }) {
   const [request, setRequest] = useState({
     isLoading: false,
     error: null,
@@ -36,43 +36,26 @@ export default function UsersList() {
     return <p><Spinner/> Loading users...</p>
   }
 
-  const user = users[usersIndex];
-
   return (
-    <Fragment>
-      <div>
-        <ul className="users items-list-nav">
-          {users.map((user, i) => (
-            <li
-              key={user.id}
-              className={ i === usersIndex ? "selected": null}
+    <div>
+      <ul className="users items-list-nav">
+        {users.map((user, i) => (
+          <li
+            key={user.id}
+            className={ i === usersIndex ? "selected": null}
+          >
+            <button
+              className="btn"
+              onClick={() => {
+                setUser(users[i]);
+                setUsersIndex(i);
+              }}
             >
-              <button
-                className="btn"
-                onClick={() => setUsersIndex(i)}
-              >
-                {user.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      
-      {user && (
-        <div className="user-details">
-          <div className="item">
-            <div className="item-header">
-              <h2>{user.name}</h2>
-            </div>
-            <div className="item-details">
-              <h3>{user.title}</h3>
-              <div>
-                <p>{user.notes}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </Fragment>
+              {user.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
