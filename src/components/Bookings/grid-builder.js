@@ -29,3 +29,19 @@ export function getGrid(bookable, startDate) {
     sessions
   };
 }
+
+export function transformBookings(bookingsArray) {
+  
+  return bookingsArray.reduce((bookings, booking) => {
+
+    const {session, date} = booking;
+
+    if (!bookings[session]) {
+      bookings[session] = {};
+    }
+
+    bookings[session][date] = booking;
+
+    return bookings;
+  }, {});
+}
