@@ -38,6 +38,22 @@ export default function BookingsGrid(
     }
   }, [week, bookable, setBooking]);
 
+  function cell(session, date) {
+    const cellData = bookings?.[session]?.[date] || grid[session][date];
+
+    const isSelected = booking?.session === session && booking?.date === date;
+
+    return (
+      <td
+        key={date}
+        className={isSelected ? "selected" : null}
+        onClick={bookings ? () => setBooking(cellData) : null} 
+      >
+        {cellData.title}
+      </td>
+    );
+  }
+
   return (
     <div className="bookings-grid placeholder">
       <h3>Bookings Grid</h3>
