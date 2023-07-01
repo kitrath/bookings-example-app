@@ -54,11 +54,45 @@ export default function BookingsGrid(
     );
   }
 
+  if (!grid) {
+    return <p>Loading...</p>
+  }
+
   return (
-    <div className="bookings-grid placeholder">
-      <h3>Bookings Grid</h3>
-      <p>{bookable?.title}</p>
-      <p>{week.date.toISOString()}</p>
-    </div>
+    <Fragment>
+      {error && (
+        <p className="bookingError">
+          {`There was a problem loading the bookings data (${error})`}
+        </p>
+      )}
+
+      <table
+        className={bookings ? "bookingsGrid active" : "bookingsGrid"}      
+      >
+        <thead>
+          <tr>
+            <th>
+              <span className="status">
+                <Spinner/>
+              </span> 
+            </th>
+            {dates.map(d => (
+              <th key={d}>
+                { (new Date(d)).toDateString() }
+              </th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {sessions.map(session => (
+            <tr key={session}>
+              <th>{session}</th>
+              {dates.map(date => cell(session, date))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Fragment>
   );
 }
