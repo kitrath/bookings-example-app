@@ -3,30 +3,22 @@ import Spinner from "../UI/Spinner";
 
 import getData from "../../utils/api";
 
-export default function UsersList({ setUser }) {
-  const [request, setRequest] = useState({
-    isLoading: false,
-    error: null,
-    users: []
-  });
-  // Initially, no user selected
-  const [usersIndex, setUsersIndex] = useState(null);
+export default function UsersList({ user, setUser }) {
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState(null); 
 
   useEffect(() => {
-  
-    setRequest(r => ({ ...r, isLoading: true }));
-
     getData("http://localhost:3001/users")
-      .then((users) => {
-        setRequest(r => ({ ...r, isLoading: false, users }));
+      .then((data) => {
+        setUsers(data);
+        setIsLoading(false);
       })
       .catch((error) => {
-        setRequest( r => ({ ...r, isLoading: false, error }));
+        setError(error);
+        setIsLoading(false);
       });
-
-  }, []);
-
-  const { users, isLoading, error } = request;
+  }, [setUser]);
 
   if (error) {
     return <p>{error.message}</p>
@@ -39,19 +31,16 @@ export default function UsersList({ setUser }) {
   return (
     <div>
       <ul className="users items-list-nav">
-        {users.map((user, i) => (
+        {users.map(u => (
           <li
-            key={user.id}
-            className={ i === usersIndex ? "selected": null}
+            key={u.id}
+            className={ u.id === user?.id ? "selected": null}
           >
             <button
               className="btn"
-              onClick={() => {
-                setUser(users[i]);
-                setUsersIndex(i);
-              }}
+              onClick={() => setUser(u)}
             >
-              {user.name}
+              {u.name}
             </button>
           </li>
         ))}
