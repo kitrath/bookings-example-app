@@ -22,7 +22,7 @@ export default function App () {
   const [user, setUser] = useState();
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{ user, setUser }}>
       <Router>
         <div className="App">
           <header>
@@ -49,7 +49,7 @@ export default function App () {
               </ul>
             </nav>
 
-            <UserPicker user={user} setUser={setUser} />
+            <UserPicker/>
           </header>
 
           <Routes>
