@@ -8,7 +8,7 @@ export default function UsersPage() {
 
   const [user, setUser] = useState(null);
 
-  const {user: loggedInUser} = useContext(UserContext);
+  const loggedInUser = useContext(UserContext);
 
   const currentUser = user || loggedInUser;
 
